@@ -1,8 +1,10 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native';
+import { StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, Button } from 'react-native';
 import { Formik } from 'formik'
 import  axios  from 'axios'
 import * as Yup from 'yup' 
+
+import SignIn from './SignIn';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -39,11 +41,11 @@ const SignupSchema = Yup.object().shape({
   
 })
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
 
   const onSubmit = (values) => {
 
-      axios.post('http://10.195.25.98:4000/users/signup', {
+      axios.post('http://10.195.25.149:4000/users/signup', {
         email: values.email,
         phoneNumber: values.phoneNumber,
         firstName: values.firstName,
@@ -160,6 +162,12 @@ export default function SignUp() {
             <Text styles={styles.submitBtnTxt}>Submit</Text>
 
           </TouchableOpacity>
+
+          <Button 
+            styles={styles.submitBtn}
+            title="Sign In"
+          onPress={() => navigation.navigate(SignIn)}
+      />
 
         </View>
       )}
